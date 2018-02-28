@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +17,7 @@ import java.util.List;
 @Table(indexes = {@Index(columnList = "bicycleColor"), @Index(columnList = "hairColor")})
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn( name = "sex")
-public abstract class Child implements DtoConverter<ChildDto> {
+public abstract class Child implements DtoConverter<ChildDto>, Serializable {
 
     @Id
     @GeneratedValue
@@ -38,4 +40,17 @@ public abstract class Child implements DtoConverter<ChildDto> {
     @OrderColumn(name="favorite_meal_order")
     protected List<Meal> favoriteMeals;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Child)) return false;
+        Child child = (Child) o;
+        return id == child.id;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
+    }
 }

@@ -12,7 +12,6 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
 
-    @CacheEvict(value = "child_fav_meal", key = "person.id")
     public void upsertPerson(Person person) {
         this.personRepository.save(person);
     }

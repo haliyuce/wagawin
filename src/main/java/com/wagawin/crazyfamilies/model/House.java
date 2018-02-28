@@ -4,11 +4,12 @@ import com.wagawin.crazyfamilies.model.dto.HouseDto;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Data
 @Entity
-public class House implements DtoConverter<HouseDto>{
+public class House implements DtoConverter<HouseDto>, Serializable {
 
     @Id
     @GeneratedValue
